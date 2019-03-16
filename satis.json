@@ -1,8 +1,0 @@
-{
-  "name": "Ludoi/Utils",
-  "homepage": "https://satis.local",
-  "repositories": [
-    { "type": "vcs", "url": "https://bitbucket.org/Ludoi/utils" }
-  ],
-  "require-all": true
-}
