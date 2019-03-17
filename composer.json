@@ -6,5 +6,8 @@
             "name": "Ludek Bednarz",
             "email": "ludek.bednarz@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "nette/utils": "^2.4"
+    }    
 }
