@@ -12,9 +12,12 @@ class Logger {
     /** @var array */
     private $channels = array();
     
-    public function channel(string $channel) {
+    /** @var string */
+    private $folder;
+    
+    public function channel(string $channel, string $folder = './logs/') {
 	if (!in_array($channel, $this->channels)) {
-	    $this->channels[$channel] = new LoggerChannel($channel);
+	    $this->channels[$channel] = new LoggerChannel($channel, $folder);
 	}
 	return $this->channels[$channel];
     }
