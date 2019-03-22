@@ -7,6 +7,9 @@
             "email": "ludek.bednarz@gmail.com"
         }
     ],
+    "autoload": {
+	"classmap": ["src/"]
+    },    
     "require": {
         "nette/utils": "^2.4"
     }    
