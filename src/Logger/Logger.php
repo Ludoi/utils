@@ -15,9 +15,9 @@ class Logger {
     /** @var string */
     private $folder;
     
-    public function channel(string $channel, string $folder = './logs/') {
+    public function channel(string $channel, bool $syslog = TRUE, string $folder = '') {
 	if (!in_array($channel, $this->channels)) {
-	    $this->channels[$channel] = new LoggerChannel($channel, $folder);
+	    $this->channels[$channel] = new LoggerChannel($channel, $syslog, $folder);
 	}
 	return $this->channels[$channel];
     }
