@@ -21,7 +21,7 @@ class LoggerChannel {
     public function __construct(string $channel, string $folder) {
 	$this->channel = $channel;
 	$this->folder = $folder;
-	$this->filename = Nette/Utils/Strings::trim($this->folder) . Nette/Utils/Strings::trim($this->channel) . ".log";
+	$this->filename = \Nette\Utils\Strings::trim($this->folder) . \Nette\Utils\Strings::trim($this->channel) . ".log";
     }
     
     public function getFilename( ): string {
