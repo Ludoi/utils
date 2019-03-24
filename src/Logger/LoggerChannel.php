@@ -14,72 +14,52 @@ class LoggerChannel {
     /** @var string */
     private $channel;
     
-    /** @var string */
-    private $folder;
+    /** @var Ludoi\Logger\Logger */
+    private $logger;
     
-    /** @var string */
-    private $filename;
-    
-    /** @var bool */
-    private $syslog;
-
-    public function __construct(string $channel, bool $syslog, string $folder) {
+    public function __construct(string $channel, Logger $logger) {
 	$this->channel = $channel;
-	$this->syslog = $syslog;
-	if (!$this->syslog) {
-	    $this->folder = $folder;
-	    $this->filename = Strings::lower(Strings::trim($this->folder) . Strings::trim($this->channel) . ".log");
-	}
+	$this->logger = $logger;
+//	if (!$this->syslog) {
+//	    $this->folder = $folder;
+//	    $this->filename = Strings::lower(Strings::trim($this->folder) . Strings::trim($this->channel) . ".log");
+//	}
     }
     
-    public function getFilename( ): string {
-	return $this->filename;
-    }
+//    public function getFilename( ): string {
+//	return $this->filename;
+//    }
     
     public function getChannel( ): string {
 	return $this->channel;
     }
-    
-    public function getSyslog( ): bool {
-	return $this->channel;
-    }
-    
+       
     public function addInfo(string $message) {
-	$this->writeMessage(LOG_INFO, $message);	
+	$this->logger->getHandler( )->writeMessage(LOG_INFO, $message, $this->channel);	
     }
     
     public function addWarning(string $message) {
-	$this->writeMessage(LOG_WARNING, $message);		
+	$this->logger->getHandler( )->writeMessage(LOG_WARNING, $message, $this->channel);		
     }
     
     public function addError(string $message) {
-	$this->writeMessage(LOG_ERR, $message);		
+	$this->logger->getHandler( )->writeMessage(LOG_ERR, $message, $this->channel);		
     }    
     
-    private function getType(int $priority):string {
-	switch ($priority) {
-	   case LOG_INFO:
-	       return 'INFO';
-	   case LOG_ERR:
-	       return 'ERROR';
-	   case LOG_WARNING:
-	       return 'WARNING';
-	}
-    }
 
-    private function writeMessage(int $priority, string $message) {
-	$date = new Nette\Utils\DateTime( );
-	$datestr = $date->__toString( );
-	if ($this->syslog) {
-	    syslog($priority, $message);
-	} 
-	else
-	{
-	    $logmessage = "$datestr {$this->getType($priority)} $message \n";
-	    $handle = fopen($this->filename, "w");
-	    fwrite($handle, $logmessage);
-	    fclose($handle);
-	}
-    }
+//    private function writeMessage(int $priority, string $message) {
+//	$date = new Nette\Utils\DateTime( );
+//	$datestr = $date->__toString( );
+//	if ($this->syslog) {
+//	    syslog($priority, $message);
+//	} 
+//	else
+//	{
+//	    $logmessage = "$datestr {$this->getType($priority)} $message \n";
+//	    $handle = fopen($this->filename, "w");
+//	    fwrite($handle, $logmessage);
+//	    fclose($handle);
+//	}
+//    }
 }
 
