@@ -19,19 +19,23 @@
 
 namespace Ludoi\Logger\Handler;
 
-abstract class AbstractHandler {
+abstract class AbstractHandler
+{
     private $handlerType;
-    
-    public function __construct(string $handlerType) {
-	$this->handlerType = $handlerType;
+
+    public function __construct(string $handlerType)
+    {
+        $this->handlerType = $handlerType;
     }
-    
-    public function getHandlerType( ): string {
-	return $this->handlerType;
+
+    public function getHandlerType(): string
+    {
+        return $this->handlerType;
     }
-    
-    public function writeMessage(int $priority, string $message, string $channel): void {
-	
-    }    
+
+    public function writeMessage(int $priority, string $message, string $channel): void
+    {
+
+    }
 }
 

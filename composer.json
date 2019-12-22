@@ -12,6 +12,9 @@
     },    
     "require": {
         "nette/utils": "^2.4",
-	"nette/tester": "2.2.*"
+	"nette/mail": "3.*",
+	"latte/latte": "2.*",
+	"nette/tester": "2.2.*",
+	"kdyby/rabbitmq": "1.2.*"
     }    
 }
