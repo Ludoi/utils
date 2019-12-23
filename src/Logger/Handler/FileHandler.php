@@ -28,12 +28,12 @@ class FileHandler extends AbstractHandler
 
     private $fileHandler = NULL;
 
-    private $priorities = [
+    private $priorities = array(
         LOG_INFO => 'INFO',
         LOG_ERR => 'ERROR',
         LOG_WARNING => 'WARNING',
         LOG_ALERT => 'ALERT'
-    ];
+    );
 
     public function __construct(string $folder)
     {
