@@ -58,7 +58,8 @@ class FileHandler extends AbstractHandler
     {
         $this->openFile($channel);
         $now = new DateTime();
-        $log = "{$now->__toString()} {$this->priorities[$priority]} {Strings::trim($message)} \n";
+        $messageText = Strings::trim($message);
+        $log = "{$now->__toString()} {$this->priorities[$priority]} {$messageText}\n";
         fwrite($this->fileHandler, $log);
         $this->closeFile();
     }
