@@ -46,17 +46,20 @@ class FileHandler extends AbstractHandler
         return $this->folder . Strings::lower(Strings::trim($channel) . ".log");
     }
 
-    private function openFile() {
-        if (is_null($this->fileHandler)) {
-            $this->fileHandler = fopen($this->getFilename($channel), 'w');
-        }
+    private function openFile(string $channel) {
+        $this->fileHandler = fopen($this->getFilename($channel), 'a');
+    }
+
+    private function closeFile() {
+        fclose($this->fileHandler);
     }
 
     public function writeMessage(int $priority, string $message, string $channel): void
     {
-        $this->openFile();
+        $this->openFile($channel);
         $now = new DateTime();
         $log = "{$now->__toString()} {$this->priorities[$priority]} {Strings::trim($message)} \n";
-        fwrite($log);
+        fwrite($this->fileHandler, $log);
+        $this->closeFile();
     }
 }
