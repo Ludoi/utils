@@ -17,46 +17,60 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Ludoi\Logger;
+namespace Ludoi\Timer;
 
-use Ludoi\Logger\Handler\AbstractHandler;
 
-class Logger
+class Timer
 {
-    /** @var array */
-    private array $channels = array();
+    /**
+     * @var string
+     */
+    private string $name;
+    /**
+     * @var float
+     */
+    private float $startTime;
+    /**
+     * @var float
+     */
+    private float $endTime;
 
     /**
-     * @var AbstractHandler
+     * Timer constructor.
+     * @param string $name
      */
-    private AbstractHandler $handler;
-
-    /**
-     * Logger constructor.
-     * @param AbstractHandler $handler
-     */
-    public function __construct(AbstractHandler $handler)
+    public function __construct(string $name)
     {
-        $this->handler = $handler;
+        $this->name = $name;
     }
 
     /**
-     * @return AbstractHandler
+     *
      */
-    public function getHandler(): AbstractHandler
+    public function start(): void
     {
-        return $this->handler;
+        $this->startTime = microtime(true);
     }
 
     /**
-     * @param string $channel
-     * @return LoggerChannel
+     *
      */
-    public function getChannel(string $channel): LoggerChannel
+    public function stop(): void {
+        $this->endTime = microtime(true);
+    }
+
+    /**
+     * @return float
+     */
+    public function duration(): float {
+        return ($this->endTime - $this->startTime);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
-        if (!in_array($channel, $this->channels)) {
-            $this->channels[$channel] = new LoggerChannel($channel, $this);
-        }
-        return $this->channels[$channel];
+        return $this->name;
     }
 }

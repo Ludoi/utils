@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /* 
  * Copyright (C) 2019 Luděk
  *
@@ -21,21 +21,35 @@ namespace Ludoi\Logger\Handler;
 
 abstract class AbstractHandler
 {
-    private $handlerType;
+    /**
+     * @var string
+     */
+    private string $handlerType;
 
+    /**
+     * AbstractHandler constructor.
+     * @param string $handlerType
+     */
     public function __construct(string $handlerType)
     {
         $this->handlerType = $handlerType;
     }
 
+    /**
+     * @return string
+     */
     public function getHandlerType(): string
     {
         return $this->handlerType;
     }
 
+    /**
+     * @param int $priority
+     * @param string $message
+     * @param string $channel
+     */
     public function writeMessage(int $priority, string $message, string $channel): void
     {
 
     }
 }
-

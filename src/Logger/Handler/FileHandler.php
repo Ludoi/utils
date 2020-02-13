@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /* 
  * Copyright (C) 2019 Luděk
  *
@@ -24,36 +24,64 @@ use Nette\Utils\Strings;
 
 class FileHandler extends AbstractHandler
 {
-    private $folder;
+    /**
+     * @var string
+     */
+    private string $folder;
 
+    /**
+     * @var null
+     */
     private $fileHandler = NULL;
 
-    private $priorities = array(
+    /**
+     * @var array
+     */
+    private array $priorities = array(
         LOG_INFO => 'INFO',
         LOG_ERR => 'ERROR',
         LOG_WARNING => 'WARNING',
         LOG_ALERT => 'ALERT'
     );
 
+    /**
+     * FileHandler constructor.
+     * @param string $folder
+     */
     public function __construct(string $folder)
     {
         parent::__construct('FILE');
         $this->folder = Strings::trim($folder);
     }
 
+    /**
+     * @param string $channel
+     * @return string
+     */
     public function getFilename(string $channel): string
     {
         return $this->folder . Strings::lower(Strings::trim($channel) . ".log");
     }
 
+    /**
+     * @param string $channel
+     */
     private function openFile(string $channel) {
         $this->fileHandler = fopen($this->getFilename($channel), 'a');
     }
 
+    /**
+     *
+     */
     private function closeFile() {
         fclose($this->fileHandler);
     }
 
+    /**
+     * @param int $priority
+     * @param string $message
+     * @param string $channel
+     */
     public function writeMessage(int $priority, string $message, string $channel): void
     {
         $this->openFile($channel);

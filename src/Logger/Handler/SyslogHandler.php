@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /* 
  * Copyright (C) 2019 Luděk
  *
@@ -20,26 +20,45 @@
 namespace Ludoi\Logger\Handler;
 
 class SyslogHandler extends AbstractHandler {
+    /**
+     * SyslogHandler constructor.
+     */
     public function __construct() {
-	parent::__construct('SYSLOG');
+        parent::__construct('SYSLOG');
     }
-    
+
+    /**
+     * @param int $priority
+     * @param string $message
+     * @param string $channel
+     */
     public function writeMessage(int $priority, string $message, string $channel): void {
-	$this->open();
-	$this->write($priority, $message, $channel);
-	$this->close();
+        $this->open();
+        $this->write($priority, $message, $channel);
+        $this->close();
     }
-    
+
+    /**
+     *
+     */
     private function open( ): void {
-	
+
     }
-    
-    private function close( ): void {
-	
-    }
-    
+
+    /**
+     * @param int $priority
+     * @param string $message
+     * @param string $channel
+     */
     private function write(int $priority, string $message, string $channel): void {
-	$log = "{Strings::trim($channel)} {Strings::trim($message)}";
-	syslog($priority, $message);
+        $log = "{Strings::trim($channel)} {Strings::trim($message)}";
+        syslog($priority, $message);
+    }
+
+    /**
+     *
+     */
+    private function close( ): void {
+
     }
 }
