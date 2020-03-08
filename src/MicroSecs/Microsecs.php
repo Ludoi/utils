@@ -11,6 +11,9 @@ declare(strict_types=1);
 namespace Ludoi\Microsecs;
 
 
+use DateTimeImmutable;
+use Exception;
+
 class Microsecs
 {
     /**
@@ -31,7 +34,7 @@ class Microsecs
      * @param bool $display_micro
      * @return string
      */
-    public static function microsecsToTime(?int $microsecs, bool $display_micro = false)
+    public static function microsecsToTime(?int $microsecs, bool $display_micro = false): string 
     {
         if (!is_null($microsecs)) {
             $sss = floor($microsecs % 1000 / 100);
@@ -54,13 +57,17 @@ class Microsecs
      * @param string $format
      * @return string
      */
-    public static function microsecsToDate(?int $microsecs, string $format)
+    public static function microsecsToDate(?int $microsecs, string $format): string
     {
         if (!is_null($microsecs)) {
             $secs = floor($microsecs / 1000);
-            $date = new DateTime();
-            $date->setTimestamp($secs);
-            return $date->format($format);
+            try {
+                $date = new DateTimeImmutable();
+                $date->setTimestamp($secs);
+                return $date->format($format);
+            } catch (Exception $exception) {
+                return '-';
+            }
         } else {
             return '-';
         }
