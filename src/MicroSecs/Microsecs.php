@@ -34,14 +34,14 @@ class Microsecs
      * @param bool $display_micro
      * @return string
      */
-    public static function microsecsToTime(?int $microsecs, bool $display_micro = false): string 
+    public static function microsecsToTime(?int $microsecs, bool $display_micro = false): string
     {
         if (!is_null($microsecs)) {
-            $sss = floor($microsecs % 1000 / 100);
-            $secs = floor($microsecs / 1000);
+            $sss = intdiv($microsecs % 1000, 100);
+            $secs = intdiv($microsecs, 1000);
             $ss = ($secs % 60);
-            $mm = floor($secs / 60) % 60;
-            $hh = floor($secs / 3600);
+            $mm = intdiv($secs, 60) % 60;
+            $hh = intdiv($secs, 3600);
             if ($display_micro) {
                 return sprintf('%d:%02d:%02d.%01d', $hh, $mm, $ss, $sss);
             } else {
@@ -60,7 +60,7 @@ class Microsecs
     public static function microsecsToDate(?int $microsecs, string $format): string
     {
         if (!is_null($microsecs)) {
-            $secs = floor($microsecs / 1000);
+            $secs = intdiv($microsecs, 1000);
             try {
                 $date = new DateTimeImmutable();
                 $date->setTimestamp($secs);
