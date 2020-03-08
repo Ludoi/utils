@@ -15,12 +15,26 @@ namespace Ludoi\ExtRef;
 
 class ExtRef
 {
+    /**
+     * @param int $value
+     * @return bool
+     */
+    public static function isValid(int $value): bool
+    {
+        $shortValue = (int)$value / 10;
+        $newValue = self::getCheckNumber($shortValue);
+        return ($value == $newValue);
+    }
+
+    /**
+     * @param int $value
+     * @return int
+     */
     public static function getCheckNumber(int $value): int
     {
-        $result = '';
+        $result = 0;
         $new = abs($value);
         $pos = 0;
-        $digit = 0;
         $sum = 0;
         $factor = 1;
         do {
@@ -46,11 +60,14 @@ class ExtRef
         return $result;
     }
 
+    /**
+     * @param int $number
+     * @return int
+     */
     private static function getSumOfDigits(int $number): int
     {
         $sum = 0;
         $new = abs($number);
-        $digit = 0;
         do {
             $digit = $new % 10;
             $sum += $digit;
@@ -59,13 +76,11 @@ class ExtRef
         return $sum;
     }
 
-    public static function isValid(int $value): bool
-    {
-        $shortValue = (int)$value / 10;
-        $newValue = self::getCheckNumber($shortValue);
-        return ($value == $newValue);
-    }
-
+    /**
+     * @param int $one
+     * @param int $two
+     * @return int
+     */
     public static function compare(int $one, int $two): int
     {
         $diff = abs($one - $two);
