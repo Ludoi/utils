@@ -1,24 +1,29 @@
 {
-    "name": "ludoi/utils",
-    "description": "Utilities for my projects",
-    "authors": [
-        {
-            "name": "Ludek Bednarz",
-            "email": "ludek.bednarz@gmail.com"
-        }
-    ],
-    "autoload": {
-	"classmap": ["src/"]
-    },    
-    "require": {
-        "php": "^7.4",
-        "nette/utils": "3.1.*",
-	    "nette/mail": "3.0.*",
-	    "latte/latte": "2.5.*",
-        "ext-curl": "*",
-        "ext-json": "*"
-    },
-    "require-dev": {
-      "nette/tester": "2.*"
+  "authors": [
+    {
+      "name": "Ludek Bednarz",
+      "email": "ludek.bednarz@gmail.com"
     }
+  ],
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "description": "Utilities for my projects",
+  "name": "ludoi/utils",
+  "require": {
+    "php": "^7.4",
+    "nette/utils": "3.1.*",
+    "nette/mail": "3.0.*",
+    "latte/latte": "2.5.*",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "nette/tester": "2.*",
+    "phpstan/phpstan": "*",
+    "phpstan/phpstan-nette": "*",
+    "phpstan/extension-installer": "*"
+  }
 }

@@ -60,10 +60,9 @@ class Microsecs
     public static function microsecsToDate(?int $microsecs, string $format): string
     {
         if (!is_null($microsecs)) {
-            $secs = intdiv($microsecs, 1000);
+            $timestamp = intdiv($microsecs, 1000);
             try {
-                $date = new DateTimeImmutable();
-                $date->setTimestamp($secs);
+                $date = (new DateTimeImmutable())->setTimestamp($timestamp);
                 return $date->format($format);
             } catch (Exception $exception) {
                 return '-';

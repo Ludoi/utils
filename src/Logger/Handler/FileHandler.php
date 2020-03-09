@@ -30,9 +30,9 @@ class FileHandler extends AbstractHandler
     private string $folder;
 
     /**
-     * @var null
+     * @var resource
      */
-    private $fileHandler = NULL;
+    private $fileHandler;
 
     /**
      * @var array
@@ -81,6 +81,7 @@ class FileHandler extends AbstractHandler
      * @param int $priority
      * @param string $message
      * @param string $channel
+     * @throws \Exception
      */
     public function writeMessage(int $priority, string $message, string $channel): void
     {

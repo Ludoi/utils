@@ -1,0 +1,1 @@
+docker exec php-utils composer update -d /var/www

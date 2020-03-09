@@ -72,7 +72,7 @@ class Fio {
      * JSON only!
      * @param string $from
      * @param string $to
-     * @return array|mixed
+     * @return array|null
      * @throws Exception
      */
     public function transactions(string $from = '-1 month', string $to = 'now'): ?array {
@@ -86,12 +86,12 @@ class Fio {
     /**
      * Oficiální výpisy pohybů z účtu.
      * JSON only!
-     * @param $id
-     * @param null $year
-     * @return array|mixed
+     * @param string $id
+     * @param string|null $year
+     * @return array|null
      * @throws Exception
      */
-    public function transactionsByID(string $id, ?string $year = NULL): ?array {
+    public function transactionsByID(string $id, ?string $year = null): ?array {
         if ($year === NULL) {
             $year = date('Y');
         }
@@ -102,7 +102,7 @@ class Fio {
     /**
      * Pohyby na účtu od posledního stažení.
      * JSON only!
-     * @return array|mixed
+     * @return array|null
      * @throws Exception
      */
     public function transactionsLast(): ?array {
@@ -111,11 +111,11 @@ class Fio {
     }
 
     /**
-     * @param $url
-     * @return mixed
+     * @param string $url
+     * @return string
      * @throws Exception
      */
-    private function download(string $url): ?string {
+    private function download(string $url): string {
         if (!extension_loaded('curl')) {
             throw new Exception('Curl extension, does not loaded.');
         }
@@ -129,11 +129,11 @@ class Fio {
     }
 
     /**
-     * @param $data
-     * @return array|mixed
+     * @param string|null $data
+     * @return array
      * @throws Exception
      */
-    private function parseJSON(?string $data): ?array {
+    private function parseJSON(?string $data): array {
         $json = json_decode($data);
         if ($json === NULL) {
             // no response from bank
