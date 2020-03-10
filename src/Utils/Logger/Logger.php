@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-/* 
+/*
  * Copyright (C) 2019 Luděk
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,39 +17,46 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Ludoi\Logger\Handler;
+namespace Ludoi\Utils\Logger;
 
-abstract class AbstractHandler
+use Ludoi\Utils\Logger\Handler\AbstractHandler;
+
+class Logger
 {
-    /**
-     * @var string
-     */
-    private string $handlerType;
+    /** @var array */
+    private array $channels = array();
 
     /**
-     * AbstractHandler constructor.
-     * @param string $handlerType
+     * @var AbstractHandler
      */
-    public function __construct(string $handlerType)
+    private AbstractHandler $handler;
+
+    /**
+     * Logger constructor.
+     * @param AbstractHandler $handler
+     */
+    public function __construct(AbstractHandler $handler)
     {
-        $this->handlerType = $handlerType;
+        $this->handler = $handler;
     }
 
     /**
-     * @return string
+     * @return AbstractHandler
      */
-    public function getHandlerType(): string
+    public function getHandler(): AbstractHandler
     {
-        return $this->handlerType;
+        return $this->handler;
     }
 
     /**
-     * @param int $priority
-     * @param string $message
      * @param string $channel
+     * @return LoggerChannel
      */
-    public function writeMessage(int $priority, string $message, string $channel): void
+    public function getChannel(string $channel): LoggerChannel
     {
-
+        if (!in_array($channel, $this->channels)) {
+            $this->channels[$channel] = new LoggerChannel($channel, $this);
+        }
+        return $this->channels[$channel];
     }
 }

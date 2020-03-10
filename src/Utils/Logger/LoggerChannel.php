@@ -18,7 +18,7 @@ declare(strict_types=1);
  */
 
 
-namespace Ludoi\Logger;
+namespace Ludoi\Utils\Logger;
 
 class LoggerChannel
 {

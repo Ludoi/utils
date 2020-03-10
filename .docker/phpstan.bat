@@ -1,1 +1,1 @@
-docker exec php-utils php -f /var/www/vendor/phpstan/phpstan/phpstan.phar analyse -l 5 /var/www/src
+docker exec php-utils php -f /var/www/vendor/bin/phpstan.phar analyse -l 5 /var/www/src

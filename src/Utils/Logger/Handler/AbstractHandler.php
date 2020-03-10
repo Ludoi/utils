@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-/*
+/* 
  * Copyright (C) 2019 Luděk
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,60 +17,39 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Ludoi\Timer;
+namespace Ludoi\Utils\Logger\Handler;
 
-
-class Timer
+abstract class AbstractHandler
 {
     /**
      * @var string
      */
-    private string $name;
-    /**
-     * @var float
-     */
-    private float $startTime;
-    /**
-     * @var float
-     */
-    private float $endTime;
+    private string $handlerType;
 
     /**
-     * Timer constructor.
-     * @param string $name
+     * AbstractHandler constructor.
+     * @param string $handlerType
      */
-    public function __construct(string $name)
+    public function __construct(string $handlerType)
     {
-        $this->name = $name;
-    }
-
-    /**
-     *
-     */
-    public function start(): void
-    {
-        $this->startTime = microtime(true);
-    }
-
-    /**
-     *
-     */
-    public function stop(): void {
-        $this->endTime = microtime(true);
-    }
-
-    /**
-     * @return float
-     */
-    public function duration(): float {
-        return ($this->endTime - $this->startTime);
+        $this->handlerType = $handlerType;
     }
 
     /**
      * @return string
      */
-    public function getName(): string
+    public function getHandlerType(): string
     {
-        return $this->name;
+        return $this->handlerType;
+    }
+
+    /**
+     * @param int $priority
+     * @param string $message
+     * @param string $channel
+     */
+    public function writeMessage(int $priority, string $message, string $channel): void
+    {
+
     }
 }

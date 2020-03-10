@@ -17,7 +17,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Ludoi\Logger\Handler;
+namespace Ludoi\Utils\Logger\Handler;
 
 use Nette\Utils\DateTime;
 use Nette\Utils\Strings;

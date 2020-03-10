@@ -10,18 +10,18 @@ declare(strict_types=1);
 */
 
 
-namespace Ludoi\ExtRef;
-
+namespace Ludoi\Utils;
 
 class ExtRef
 {
     /**
      * @param int $value
      * @return bool
+     * @throws Exception
      */
     public static function isValid(int $value): bool
     {
-        $shortValue = (int)$value / 10;
+        $shortValue = intdiv($value, 10);
         $newValue = self::getCheckNumber($shortValue);
         return ($value == $newValue);
     }
@@ -29,9 +29,11 @@ class ExtRef
     /**
      * @param int $value
      * @return int
+     * @throws Exception
      */
     public static function getCheckNumber(int $value): int
     {
+        if ($value < 0) throw new Exception('Value is lower than 0');
         $result = 0;
         $new = abs($value);
         $pos = 0;
@@ -63,9 +65,11 @@ class ExtRef
     /**
      * @param int $number
      * @return int
+     * @throws Exception
      */
     private static function getSumOfDigits(int $number): int
     {
+        if ($number < 0) throw new Exception('Value is lower than 0');
         $sum = 0;
         $new = abs($number);
         do {
@@ -80,6 +84,7 @@ class ExtRef
      * @param int $one
      * @param int $two
      * @return int
+     * @throws Exception
      */
     public static function compare(int $one, int $two): int
     {

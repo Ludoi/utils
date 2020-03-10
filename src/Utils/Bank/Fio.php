@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Ludoi\Bank;
+namespace Ludoi\Utils;
 
 use DateTimeImmutable;
 use Exception;
@@ -116,9 +116,7 @@ class Fio {
      * @throws Exception
      */
     private function download(string $url): string {
-        if (!extension_loaded('curl')) {
-            throw new Exception('Curl extension, does not loaded.');
-        }
+        if (!extension_loaded('curl')) throw new \Ludoi\Utils\Exception('Curl extension, does not loaded.');
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, FALSE);
@@ -135,10 +133,7 @@ class Fio {
      */
     private function parseJSON(?string $data): array {
         $json = json_decode($data);
-        if ($json === NULL) {
-            // no response from bank
-            throw new Exception('Fio API overheated. Please wait...');
-        }
+        if (is_null($json)) throw new \Ludoi\Utils\Exception('Fio API overheated. Please wait...');
         if (!$json->accountStatement->transactionList) {
             return array(); // There are no transactions (header only)
         }
