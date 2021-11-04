@@ -14,7 +14,7 @@
   "name": "ludoi/utils",
   "require": {
     "php": "^7.4",
-    "nette/utils": "3.*",
+    "nette/utils": "3.0.*",
     "ext-curl": "*",
     "ext-json": "*"
   },
