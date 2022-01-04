@@ -11,5 +11,4 @@ namespace Ludoi\Utils;
 
 class Exception extends \Exception
 {
-
 }
