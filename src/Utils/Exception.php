@@ -7,9 +7,7 @@ declare(strict_types=1);
    Author:  Luděk Bednarz
 */
 
-
 namespace Ludoi\Utils;
-
 
 class Exception extends \Exception
 {
