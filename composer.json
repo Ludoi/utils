@@ -13,13 +13,13 @@
   "description": "Utilities for my projects",
   "name": "ludoi/utils",
   "require": {
-    "php": "^7.4",
-    "nette/utils": "3.0.*",
+    "php": ">=7.4",
+    "nette/utils": ">=3",
     "ext-curl": "*",
     "ext-json": "*"
   },
   "require-dev": {
-    "nette/tester": "2.*",
+    "nette/tester": "*",
     "phpstan/phpstan": "*",
     "phpstan/phpstan-nette": "*",
     "phpstan/extension-installer": "*"
