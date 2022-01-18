@@ -86,10 +86,12 @@ class FileHandler extends AbstractHandler
     public function writeMessage(int $priority, string $message, string $channel): void
     {
         $this->openFile($channel);
-        $now = new DateTime();
-        $messageText = Strings::trim($message);
-        $log = "{$now->__toString()} {$this->priorities[$priority]} {$messageText}\n";
-        fwrite($this->fileHandler, $log);
-        $this->closeFile();
+        if (is_resource($this->fileHandler)) {
+            $now = new DateTime();
+            $messageText = Strings::trim($message);
+            $log = "{$now->__toString()} {$this->priorities[$priority]} {$messageText}\n";
+            fwrite($this->fileHandler, $log);
+            $this->closeFile();
+        }
     }
 }
