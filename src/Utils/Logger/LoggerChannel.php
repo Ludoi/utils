@@ -51,36 +51,46 @@ class LoggerChannel
         return $this->channel;
     }
 
+	/**
+	 * @param string $message
+	 * @param string|null $userid
+	 * @return string
+	 */
+	private function enhanceMessage(string $message, ?string $userid = null): string
+	{
+		return is_null($userid)? $message : "{$userid}: {$message}";
+	}
+
     /**
      * @param string $message
      */
-    public function addInfo(string $message)
+    public function addInfo(string $message, ?string $userid = null)
     {
-        $this->logger->getHandler()->writeMessage(LOG_INFO, $message, $this->channel);
+        $this->logger->getHandler()->writeMessage(LOG_INFO, $this->enhanceMessage($message, $userid), $this->channel);
     }
 
     /**
      * @param string $message
      */
-    public function addWarning(string $message)
+    public function addWarning(string $message, string $userid = null)
     {
-        $this->logger->getHandler()->writeMessage(LOG_WARNING, $message, $this->channel);
+        $this->logger->getHandler()->writeMessage(LOG_WARNING, $this->enhanceMessage($message, $userid), $this->channel);
     }
 
     /**
      * @param string $message
      */
-    public function addError(string $message)
+    public function addError(string $message, string $userid = null)
     {
-        $this->logger->getHandler()->writeMessage(LOG_ERR, $message, $this->channel);
+        $this->logger->getHandler()->writeMessage(LOG_ERR, $this->enhanceMessage($message, $userid), $this->channel);
     }
 
     /**
      * @param string $message
      */
-    public function addAlert(string $message)
+    public function addAlert(string $message, string $userid = null)
     {
-        $this->logger->getHandler()->writeMessage(LOG_ALERT, $message, $this->channel);
+        $this->logger->getHandler()->writeMessage(LOG_ALERT, $this->enhanceMessage($message, $userid), $this->channel);
     }
 }
 
