@@ -122,7 +122,7 @@ class Fio {
         curl_setopt($curl, CURLOPT_HEADER, FALSE);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, TRUE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
         return curl_exec($curl);
     }
 
