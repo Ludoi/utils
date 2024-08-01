@@ -58,7 +58,7 @@ class Fio {
     /**
      * @var string
      */
-    private string $rest_url = 'https://www.fio.cz/ib_api/rest/';
+    private string $rest_url = 'https://fioapi.fio.cz/';
 
     /**
      * @param string $token SECURE
