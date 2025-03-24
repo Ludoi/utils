@@ -79,8 +79,8 @@ class Users extends Table
 		return $initial;
 	}
 
-	public function createUser(string $user, string $name, string $surname, string $email, ?int $racerid, string $role,
-							   bool   $direct = true): string
+	public function createUser(string $user, string $name, string $surname, string $email, string $role,
+							   array $additionalData, bool $direct = true): string
 	{
 		$username = $this->normalizeUserName($user);
 		$now = new DateTime;
@@ -89,8 +89,11 @@ class Users extends Table
 		$hash = $pwd->hash($password);
 		$data = ['uname' => $username, 'firstname' => $name,
 			'lastname' => $surname, 'email' => Strings::lower($email),
-			'created' => $now, 'password' => $hash, 'active' => true, 'racerid' => $racerid,
+			'created' => $now, 'password' => $hash, 'active' => true,
 			'roles' => Strings::lower($role)];
+		foreach ($additionalData as $name => $value) {
+			$data[$name] = $value;
+		}
 		if ($direct) {
 			$this->insert($data);
 		} else {
@@ -99,7 +102,7 @@ class Users extends Table
 		return $password;
 	}
 
-	public function createTemporaryUser(array $userInfo): array
+	public function createTemporaryUser(array $additionalData): array
 	{
 		$username = 'user-' . Random::generate(10);
 		$username = $this->normalizeUserName($username);
@@ -110,7 +113,7 @@ class Users extends Table
 			'created' => $now, 'password' => '', 'active' => false,
 			'temporary' => true, 'initial' => $initial,
 			'activation' => $activation];
-		foreach ($userInfo as $field => $user) {
+		foreach ($additionalData as $field => $user) {
 			$data[$field] = $user;
 		}
 		$this->insert($data);
