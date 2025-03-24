@@ -16,7 +16,7 @@ class Authenticate implements Authenticator, Nette\Security\IdentityHandler
 {
 	use Nette\SmartObject;
 
-	private Users $users;
+	protected Users $users;
 
 	function __construct(Users $users)
 	{
