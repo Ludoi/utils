@@ -5,6 +5,12 @@
       "email": "ludek.bednarz@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/Ludoi/vocative.git"
+    }
+  ],
   "autoload": {
     "classmap": [
       "src/"
@@ -13,15 +19,17 @@
   "description": "Utilities for my projects",
   "name": "ludoi/utils",
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.1",
     "nette/utils": ">=3",
+    "nette/database": "^3.2",
+    "nette/security": "^3.2",
+    "ludoi/vocative": "dev-master",
     "ext-curl": "*",
     "ext-json": "*"
   },
   "require-dev": {
     "nette/tester": "*",
     "phpstan/phpstan": "*",
-    "phpstan/phpstan-nette": "*",
-    "phpstan/extension-installer": "*"
+    "phpstan/phpstan-nette": "*"
   }
 }
