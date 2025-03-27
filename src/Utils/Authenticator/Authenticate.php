@@ -38,6 +38,7 @@ class Authenticate implements Authenticator, Nette\Security\IdentityHandler
 		}
 
 		$this->users->updateAuthToken($row);
+		$this->users->updateLastLoginInRow($row);
 
 		return new SimpleIdentity($row->uname, explode(',', $row->roles), $row->toArray());
 	}

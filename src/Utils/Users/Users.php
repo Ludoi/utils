@@ -190,6 +190,11 @@ class Users extends Table
 		$this->find($this->normalizeUserName($uname))?->update(['last_login' => new DateTime()]);
 	}
 
+	public function updateLastLoginInRow(ActiveRow $row): void
+	{
+		$row->update(['last_login' => new DateTime()]);
+	}
+
 	public function normalizeUserName(string $uname): string
 	{
 		return Strings::lower(Strings::trim($uname));
