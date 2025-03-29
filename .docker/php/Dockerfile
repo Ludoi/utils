@@ -27,8 +27,6 @@ RUN if [ $WITH_XDEBUG = "true" ] ; then \
         echo "xdebug.remote_port=9009" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
         echo "xdebug.remote_connect_back=0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     fi ;
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN useradd -rm -d /home/ludoi -s /bin/bash -g root -G sudo -u 1000 ludoi
 WORKDIR /home/ludoi
 CMD ["php-fpm"]
