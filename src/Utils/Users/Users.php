@@ -52,31 +52,51 @@ class Users extends Table
 		}
 	}
 
-	public function setPassword(string $user, string $password): void
+	public function setPasswordInRow(ActiveRow $user, string $password): void
 	{
-		$username = $this->normalizeUserName($user);
 		$now = new DateTime;
 		$pwd = new Passwords();
 		$hash = $pwd->hash($password);
-		$this->find($username)->update(['password' => $hash, 'forgotten' => false,
+		$user->update(['password' => $hash, 'forgotten' => false,
 			'forgotten_requested' => null, 'initial' => null, 'updated' => $now]);
+	}
+
+	public function setPassword(string $user, string $password): void
+	{
+		$username = $this->normalizeUserName($user);
+		$user = $this->find($username);
+		if (!is_null($user))
+			$this->setPasswordInRow($user, $password);
+	}
+
+	public function activateInRow(ActiveRow $user, bool $activate): void
+	{
+		$now = new DateTime;
+		$user->update(['active' => $activate, 'updated' => $now]);
 	}
 
 	public function activate(string $user, bool $activate): void
 	{
 		$username = $this->normalizeUserName($user);
-		$now = new DateTime;
-		$this->find($username)->update(['active' => $activate, 'updated' => $now]);
+		$user = $this->find($username);
+		if (!is_null($user))
+			$this->activateInRow($user, $activate);
 	}
 
-	public function forgottenPassword(string $user): string
+	public function forgottenPasswordInRow(ActiveRow $user): string
 	{
-		$username = $this->normalizeUserName($user);
 		$now = new DateTime;
 		$initial = Random::generate(self::ACTIVATION_LENGTH);
-		$this->find($username)->update(['forgotten' => true, 'forgotten_requested' => $now,
+		$user->update(['forgotten' => true, 'forgotten_requested' => $now,
 			'initial' => $initial]);
 		return $initial;
+	}
+
+	public function forgottenPassword(string $user): ?string
+	{
+		$username = $this->normalizeUserName($user);
+		$user = $this->find($username);
+		return !is_null($user)? $this->forgottenPasswordInRow($user) : null;
 	}
 
 	public function createUser(string $user, string $name, string $surname, string $email, string $role,
@@ -120,19 +140,20 @@ class Users extends Table
 		return ['uname' => $username, 'initial' => $initial, 'activation' => $activation];
 	}
 
-	public function createNewPassword(string $user): ?string
+	public function createNewPasswordInRow(ActiveRow $user): ?string
 	{
-		$user = $this->normalizeUserName($user);
-		$row = $this->find($user);
-		if (!is_null($row)) {
-			$password = Random::generate(20);
-			$pwd = new Passwords();
-			$hash = $pwd->hash($password);
-			$row->update(['password' => $hash]);
-		} else {
-			$password = null;
-		}
+		$password = Random::generate(20);
+		$pwd = new Passwords();
+		$hash = $pwd->hash($password);
+		$user->update(['password' => $hash]);
 		return $password;
+	}
+
+	public function createNewPassword(string $username): ?string
+	{
+		$username = $this->normalizeUserName($username);
+		$user = $this->find($username);
+		return !is_null($user)? $this->createNewPasswordInRow($user) : null;
 	}
 
 	public function checkRecover(string $initial): ?ActiveRow
@@ -152,7 +173,6 @@ class Users extends Table
 
 	public function checkActivation(string $initial, string $activation): ?ActiveRow
 	{
-		$now = new DateTime();
 		$user = $this->findOneBy(['initial' => $initial]);
 		if (is_null($user) || $user->activation !== $activation || !$user->temporary) {
 			$user = null;
