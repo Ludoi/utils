@@ -23,7 +23,10 @@
     "nette/utils": ">=3",
     "nette/database": "^3.2",
     "nette/security": "^3.2",
+    "nette/mail": "^4.0",
     "ludoi/vocative": "^1",
+    "contributte/rabbitmq": "*",
+    "contributte/mailing": "*",
     "ext-curl": "*",
     "ext-json": "*"
   },
