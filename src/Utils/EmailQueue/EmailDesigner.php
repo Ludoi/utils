@@ -22,7 +22,7 @@ class EmailDesigner
 
 	protected function addGeneralLinks(array $source): array
 	{
-		return [];
+		return $source;
 	}
 
 	public function createEmail(string $to, string $subject, array $parameters, string $templateFile,
